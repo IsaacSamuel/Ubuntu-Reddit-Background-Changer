@@ -1,0 +1,7 @@
+Program requirements
+
+Upon initilization, needs to create a .conf in /etc/systemd that runs python script upon startup. .conf file needs to know path to main file. Run file in background. 
+
+Needs to scrape top three 'images of the day' from /r/Earthporn.
+
+After scraping, needs to alternate between images every increment of time indicated by user upon setup.
