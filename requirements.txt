@@ -4,7 +4,7 @@ Upon initilization, needs to create a .conf in /etc/systemd that runs python scr
 
 Needs to scrape top three 'images of the day' from /r/Earthporn.
 
-After scraping, needs to alternate between images every increment of time indicated by user upon setup.
+After scraping, needs to alternate between images every increment of time indicated by user upon setup. (randomly)
 
 
 Eventual: add a list of links to the urls where the images were posted.
