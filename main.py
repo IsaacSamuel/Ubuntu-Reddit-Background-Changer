@@ -4,6 +4,8 @@ import os, shutil
 from bs4 import BeautifulSoup
 import requests
 import re
+import time
+import commands
 
 
 def save_img(url):
@@ -96,11 +98,22 @@ def find_top_three_pics():
 		print("Argument not found.")
 		sys.exit(1)
 
+#Some credit for this function goes to Github user mtrovo
+def set_gnome_wallpaper(file_path):
+	command = "gsettings gsettings set org.gnome.desktop.background picture-options 'zoom' && set org.gnome.desktop.background picture-uri file://'%s'" % file_path
+	status, output = commands.getstatusoutput(command)
+	return status
 
 
 if __name__ == "__main__":
-	reddit = praw.Reddit(client_id='JhNp1qEt7aeMRQ', client_secret=None, redirect_uri='http://localhost:8080', user_agent='Ubuntu Background Scraper by Isaac Samuel')
+	#Intiate PRAW (Reddit API Python wrapper)
+	#reddit = praw.Reddit(client_id='JhNp1qEt7aeMRQ', client_secret=None, redirect_uri='http://localhost:8080', user_agent='Ubuntu Background Scraper by Isaac Samuel')
+		
+	while True:
+		#find_top_three_pics()
 
-	find_top_three_pics()
+		#Set pic, set timer, run continously
+		for img in os.listdir('./pics'):
+			set_gnome_wallpaper(os.path.abspath('pics/' + img))
+			time.sleep(10)
 
-	#Set pic, set timer, run continously
