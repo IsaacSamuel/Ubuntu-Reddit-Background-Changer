@@ -20,7 +20,6 @@ def save_img(url):
 			return False
 
 	r = requests.get(url, stream=True)
-	print url
 	if re.findall('(http://i.imgur.com/(.*))(\?.*)?', url):
 		#Links to an imgur page that is the image source
 		return write_to_img(r)
@@ -35,7 +34,6 @@ def save_img(url):
 		soup = BeautifulSoup(r.content, 'html.parser')
 
 		imageUrl = soup.select('.image a')[0]['href']
-		print imageURL
 		request = "(http://i.imgur.com/" + image_URL
 		r = requests.get(request, stream=True)
 		return write_to_img(r)
@@ -112,10 +110,10 @@ if __name__ == "__main__":
 	reddit = praw.Reddit(client_id='JhNp1qEt7aeMRQ', client_secret=None, redirect_uri='http://localhost:8080', user_agent='Ubuntu Background Scraper by Isaac Samuel')
 	find_top_three_pics()
 
-	#while True:
+	while True:
 
 		#Set pic, set timer, run continously
-		#for img in os.listdir('./pics'):
-		#	set_gnome_wallpaper(os.path.abspath('pics/' + img))
-		#	time.sleep(10)
+		for img in os.listdir('./pics'):
+			set_gnome_wallpaper(os.path.abspath('pics/' + img))
+			time.sleep(float(sys.argv[2]))
 
