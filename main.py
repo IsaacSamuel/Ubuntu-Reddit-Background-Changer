@@ -5,14 +5,14 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import time
-import commands
+import subprocess
 
 
 def save_img(url):
 	#Once we have decided that the URL is an image, write to file
 	def write_to_img(r):
 		if r.status_code == 200:
-			with open('./pics/' + url[-8:], 'wb') as file:
+			with open('pics/' + url[-8:], 'wb') as file:
 				r.raw.decode_content = True
 				shutil.copyfileobj(r.raw, file)
 			return True
@@ -51,8 +51,8 @@ def get_pics(subreddit):
 
 def find_top_three_pics():
 	#Removes current photos in pics subdirectory
-	for file in os.listdir('./pics'):
-		os.unlink('./pics/' + file)
+	for file in os.listdir('pics/'):
+		os.unlink('pics/' + file)
 
 	#Creates subreddit instances with PRAW
 	spaceporn = reddit.subreddit('SpacePorn')
@@ -101,11 +101,13 @@ def find_top_three_pics():
 #Some credit for this function goes to Github user mtrovo
 def set_gnome_wallpaper(file_path):
 	command = "gsettings set org.gnome.desktop.background picture-options 'zoom' && gsettings set org.gnome.desktop.background picture-uri file://'%s'" % file_path
-	status, output = commands.getstatusoutput(command)
-	return status
+	subprocess.call(command, shell=True)
 
 
 if __name__ == "__main__":
+	time.sleep(10)
+	os.chdir(os.path.dirname(os.path.realpath(__file__)))
+	
 	#Intiate PRAW (Reddit API Python wrapper)
 	reddit = praw.Reddit(client_id='JhNp1qEt7aeMRQ', client_secret=None, redirect_uri='http://localhost:8080', user_agent='Ubuntu Background Scraper by Isaac Samuel')
 	find_top_three_pics()
@@ -113,7 +115,8 @@ if __name__ == "__main__":
 	while True:
 
 		#Set pic, set timer, run continously
-		for img in os.listdir('./pics'):
+		for img in os.listdir('pics/'):
+			print(os.path.abspath('pics/' + img))
 			set_gnome_wallpaper(os.path.abspath('pics/' + img))
-			time.sleep(float(sys.argv[2]))
+			time.sleep(float(sys.argv[2])*60)
 
