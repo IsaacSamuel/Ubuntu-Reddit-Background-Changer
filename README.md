@@ -15,7 +15,7 @@ To run it, simply download it and run it via the command-line.
 
 ### Running automatically
 
- I hope to create a setup one day that will install this software for you, but I ran into technical snags. For now, to run this file automatically, you must, according to the Ubuntu Documentation:
+ I hope to create a setup one day that will install this software for you, but I ran into technical snags. For now, to run this file automatically, you must (according to the [Ubuntu Documentation](https://help.ubuntu.com/stable/ubuntu-help/startup-applications.html):
 
  > Use the Dash to find and open Startup Applications. Alternatively you can press Alt+F2 and run the gnome-session-properties command.
 

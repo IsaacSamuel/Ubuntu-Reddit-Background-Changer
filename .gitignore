@@ -1,2 +1,4 @@
 *.jpg
 setup.py
+*.txt
+__pycache__/
