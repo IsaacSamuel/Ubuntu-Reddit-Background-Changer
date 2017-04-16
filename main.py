@@ -1,6 +1,6 @@
 import praw
 import sys
-import os, shutil
+import os, shutil, random
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -115,7 +115,9 @@ if __name__ == "__main__":
 	while True:
 
 		#Set pic, set timer, run continously
-		for img in os.listdir('pics/'):
+		files = os.listdir('pics/')
+		random.shuffle(files)
+		for img in files:
 			print(os.path.abspath('pics/' + img))
 			set_gnome_wallpaper(os.path.abspath('pics/' + img))
 			time.sleep(float(sys.argv[2])*60)
