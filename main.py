@@ -33,8 +33,8 @@ def save_img(url):
 		#Links to an imgur page containing a link to the image
 		soup = BeautifulSoup(r.content, 'html.parser')
 
-		imageUrl = soup.select('.image a')[0]['href']
-		request = "(http://i.imgur.com/" + image_URL
+		imageUrl = soup.find('div', {"class" : "post-image"}).img['src']
+		request = "http:" + imageUrl
 		r = requests.get(request, stream=True)
 		return write_to_img(r)
 
@@ -61,42 +61,40 @@ def find_top_three_pics():
 
 
 	#Stupid lack of case in Python!
-	try:
-		if sys.argv[1] == 'SPE':
-			#Get pics from /r/SpacePorn, /r/Pic, /r/EarthPorn
-			get_pics(spaceporn)
-			get_pics(earthporn)
-			get_pics(pic)
 
-		elif sys.argv[1] == 'SP':
-			#Get pics from /r/SpacePorn, /r/Pic
-			get_pics(spaceporn)
-			get_pics(pic)
+	if sys.argv[1] == 'SPE':
+		#Get pics from /r/SpacePorn, /r/Pic, /r/EarthPorn
+		get_pics(spaceporn)
+		get_pics(earthporn)
+		get_pics(pic)
 
-		elif sys.argv[1] == 'SE':
-			#Get pics from /r/SpacePorn, /r/EarthPorn
-			get_pics(spaceporn)
-			get_pics(earthporn)
-		elif sys.argv[1] == 'EP':
-			#Get pics from /r/EarthPorn, /r/Pic
-			get_pics(earthporn)
-			get_pics(pic)
+	elif sys.argv[1] == 'SP':
+		#Get pics from /r/SpacePorn, /r/Pic
+		get_pics(spaceporn)
+		get_pics(pic)
 
-		elif sys.argv[1] == 'P':
-			#Get pics from /r/Pic
-			get_pics(pic)
-		elif sys.argv[1] == 'E':
-			#Get pics from /r/EarthPorn
-			get_pics(earthporn)
-		elif sys.argv[1] == 'S':
-			#Get pics from /r/SpacePorn
-			get_pics(pic)
-		else:
-			print("Argument not recognized.")
-			sys.exit(1)
-	except IndexError:
-		print("Argument not found.")
+	elif sys.argv[1] == 'SE':
+		#Get pics from /r/SpacePorn, /r/EarthPorn
+		get_pics(spaceporn)
+		get_pics(earthporn)
+	elif sys.argv[1] == 'EP':
+		#Get pics from /r/EarthPorn, /r/Pic
+		get_pics(earthporn)
+		get_pics(pic)
+
+	elif sys.argv[1] == 'P':
+		#Get pics from /r/Pic
+		get_pics(pic)
+	elif sys.argv[1] == 'E':
+		#Get pics from /r/EarthPorn
+		get_pics(earthporn)
+	elif sys.argv[1] == 'S':
+		#Get pics from /r/SpacePorn
+		get_pics(pic)
+	else:
+		print("Argument not recognized.")
 		sys.exit(1)
+
 
 #Some credit for this function goes to Github user mtrovo
 def set_gnome_wallpaper(file_path):
@@ -121,4 +119,3 @@ if __name__ == "__main__":
 			print(os.path.abspath('pics/' + img))
 			set_gnome_wallpaper(os.path.abspath('pics/' + img))
 			time.sleep(float(sys.argv[2])*60)
-
